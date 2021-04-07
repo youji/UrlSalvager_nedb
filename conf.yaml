@@ -1,0 +1,33 @@
+startUrl:
+  - http://example.com/
+allowDomain:
+  - example.com
+# basicAuthentication:
+#   username: aaaaa
+#   password: bbbbb
+loadBlockFileExtention:
+  - jpg
+  - gif
+  - png
+  - svg
+  - js
+  - css
+  - pdf
+  - xlsx
+  - docx
+  - pptx
+  - xls
+  - doc
+  - ppt
+# emulateDevice: iPhone X
+saveHtml: true
+browser:
+  headless: true
+  args:
+    - --disable-gpu
+    - --disable-dev-shm-usage
+    - --disable-setuid-sandbox
+    - --no-first-run
+    - --no-sandbox
+    - --no-zygote
+    - --single-process
