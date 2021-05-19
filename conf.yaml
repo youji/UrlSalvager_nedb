@@ -21,6 +21,7 @@ loadBlockFileExtention:
   - ppt
 # emulateDevice: iPhone X
 saveHtml: true
+interval: 1000
 browser:
   headless: true
   args:
