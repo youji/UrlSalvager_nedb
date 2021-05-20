@@ -10,7 +10,7 @@ loadBlockFileExtention:
   - gif
   - png
   - svg
-  - js
+  # - js
   - css
   - pdf
   - xlsx
@@ -21,7 +21,7 @@ loadBlockFileExtention:
   - ppt
 # emulateDevice: iPhone X
 saveHtml: true
-interval: 1000
+interval: 100
 browser:
   headless: true
   args:
