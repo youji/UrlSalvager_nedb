@@ -60,12 +60,12 @@ result ディレクトリ内に結果が出力されます
 result
 └── 20210407151539483
     ├── htmlcode
-    │   ├── https:__example.com_.txt
-    │   ├── https:__example.com_business.html.txt
-    │   ├── https:__example.com_en_.txt
-    │   ├── https:__example.com_en_business.html.txt
+    │   ├── https:__example_com_.txt
+    │   ├── https:__example_com_business_html.txt
+    │   ├── https:__example_com_en_.txt
+    │   ├── https:__example_com_en_business_html.txt
     │   ├── :
-    │   └── https:__example.com_about.html.txt
+    │   └── https:__example_com_about_html.txt
     └── result.xlsx
 
 ```
