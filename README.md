@@ -47,6 +47,8 @@ conf.yaml に記載の startUrl を起点として a タグリンクを辿り、
   - UA 判定等でスマホ UA を使いたい場合等はコメントアウトして使用
     https://github.com/puppeteer/puppeteer/blob/main/src/common/DeviceDescriptors.ts のデバイスを指定可能
   - コメントアウトした状態では puppeteer デフォルトの UA でアクセスする（chrome）
+- interval
+  - URLにアクセスする際のインターバル指定（Nミリ秒間隔でアクセスすることで負荷軽減させる）
 
 ## 結果出力
 
