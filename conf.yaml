@@ -22,6 +22,7 @@ loadBlockFileExtention:
 # emulateDevice: iPhone X
 saveHtml: true
 interval: 100
+timeout: 15000
 browser:
   headless: true
   args:

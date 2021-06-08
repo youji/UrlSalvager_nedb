@@ -49,6 +49,8 @@ conf.yaml に記載の startUrl を起点として a タグリンクを辿り、
   - コメントアウトした状態では puppeteer デフォルトの UA でアクセスする（chrome）
 - interval
   - URLにアクセスする際のインターバル指定（Nミリ秒間隔でアクセスすることで負荷軽減させる）
+- timeout
+  - URLアクセス時にtimeoutエラーになるまでの時間指定
 
 ## 結果出力
 
