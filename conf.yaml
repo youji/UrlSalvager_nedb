@@ -1,16 +1,20 @@
+id: example_com
 startUrl:
   - http://example.com/
 allowDomain:
   - example.com
+hashDelete:
+  - true
 # basicAuthentication:
 #   username: aaaaa
 #   password: bbbbb
 loadBlockFileExtention:
   - jpg
+  - jpeg
   - gif
   - png
   - svg
-  # - js
+  - js
   - css
   - pdf
   - xlsx
@@ -19,10 +23,12 @@ loadBlockFileExtention:
   - xls
   - doc
   - ppt
+  - zip
 # emulateDevice: iPhone X
 saveHtml: true
-interval: 100
-timeout: 15000
+interval: 0
+loadWait: 0
+timeout: 0
 browser:
   headless: true
   args:
