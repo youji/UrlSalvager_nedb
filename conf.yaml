@@ -25,10 +25,11 @@ loadBlockFileExtention:
   - ppt
   - zip
 # emulateDevice: iPhone X
-saveHtml: true
+saveHtml: false
 interval: 0
 loadWait: 0
 timeout: 0
+maxTabNum: 5
 browser:
   headless: true
   args:

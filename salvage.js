@@ -9,7 +9,7 @@ const nedb = require('nedb');
 const pageDataDir = "./result/" + conf.id + "/pageData/";
 
 let db = {};
-db.UrlList = new nedb({ filename: 'result/'+conf.id+'/db', autoload: true });
+db.UrlList = new nedb({ filename: 'result/' + conf.id + '/db', autoload: true });
 db.UrlList.ensureIndex({
     fieldName: 'url',
     unique: true
@@ -44,34 +44,44 @@ async function main() {
     let kanryo = await countDoneUrl();
     let nokori = await countNotYetUrl();
     while (nokori > 0) {
-        let target = await getNotYetUrl1()
-        let targetId = target._id;
-        let targetUrl = target.url;
-
-        let pageData = await surveyPage.survey(browser, targetUrl,targetId);
-
-        pageData.hrefs.forEach(url => {
-            // console.log(url)
-            if (isAllowDomain(url)) {
-                let insertUrl = url;
-                if(conf.hashDelete){
-                    insertUrl = conf.hashDelete? insertUrl.replace(/#.*$/,"") : insertUrl;
-                }
-                db.UrlList.insert({
-                    url: insertUrl,
-                    status: 'notyet'
-                }, function (err) {
-                    // console.log('skip:' + insertUrl)
+        let targets = await getNotYetUrls(conf.maxTabNum);
+        let promises = [];
+        targets.forEach(elem => {
+            promises.push(new Promise(async (resolve, reject) => {
+                let targetId = elem._id;
+                let targetUrl = elem.url;
+                let pageData = await surveyPage.survey(browser, targetUrl, targetId);
+                pageData.hrefs.forEach(url => {
+                    // console.log(url)
+                    if (isAllowDomain(url)) {
+                        let insertUrl = url;
+                        if (conf.hashDelete) {
+                            insertUrl = conf.hashDelete ? insertUrl.replace(/#.*$/, "") : insertUrl;
+                        }
+                        db.UrlList.insert({
+                            url: insertUrl,
+                            status: 'notyet'
+                        }, function (err) {
+                            // console.log('skip:' + insertUrl)
+                        })
+                    }
                 })
-            }
-        })
+                jsonIo.write(pageDataDir + targetId + '.json', pageData)
+                await updateDone(targetUrl)
 
-        jsonIo.write(pageDataDir + target._id + '.json', pageData)
-        await updateDone(targetUrl)
-
-        console.log('[残り:' + nokori + ']', '[完了:' + (++kanryo) + ']', '('+targetUrl+' のチェックが終わったところ)')
+                resolve(targetUrl);
+            }))
+        });
+        await Promise.all(promises).then((values) => {
+            values.forEach(url => {
+                console.log('checked:'+url)
+            });
+        });
 
         nokori = await countNotYetUrl()
+        kanryo = await countDoneUrl();
+
+        console.log('[残り:' + nokori + ']', '[完了:' + (++kanryo) + ']')
     }
     await closeBrowser();
     // await exportXlsxResult();
@@ -119,6 +129,18 @@ async function getNotYetUrl1() {
                 resolve(doc);
             }
         });
+    });
+    return rtn;
+}
+async function getNotYetUrls(num) {
+    let rtn = await new Promise((resolve, reject) => {
+        db.UrlList.find({ status: 'notyet' }).limit(num).exec((err, doc) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(doc);
+            }
+        })
     });
     return rtn;
 }
