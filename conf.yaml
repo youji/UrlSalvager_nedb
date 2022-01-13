@@ -24,6 +24,8 @@ loadBlockFileExtention:
   - doc
   - ppt
   - zip
+  - txt
+  - ico
 # emulateDevice: iPhone X
 saveHtml: false
 interval: 0
