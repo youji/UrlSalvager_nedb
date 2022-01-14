@@ -54,7 +54,7 @@ async function main() {
                 pageData.hrefs.forEach(url => {
                     // console.log(url)
                     if (isAllowDomain(url)) {
-                        let insertUrl = url;
+                        let insertUrl = deleteDoubleSlash(url);
                         if (conf.hashDelete) {
                             insertUrl = conf.hashDelete ? insertUrl.replace(/#.*$/, "") : insertUrl;
                         }
@@ -93,6 +93,17 @@ function isAllowDomain(url) {
     const domain = new URL(url).hostname;
     if (conf.allowDomain.indexOf(domain) !== -1) {
         rtn = true;
+    }
+    return rtn;
+}
+function deleteDoubleSlash(url){
+    let rtn = '';
+    let arr = url.split('?')
+    arr[0] = arr[0].replace(/(?<!:)\/{2,}/g,'/')
+    if(arr.length > 1){
+        rtn = arr.join('?')
+    }else{
+        rtn = arr.join('');
     }
     return rtn;
 }

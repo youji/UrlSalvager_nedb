@@ -15,13 +15,12 @@ main();
 
 async function main() {
     let rows = [];
-    let headerRow =[];
+    let headerRow = [];
 
     headerRow = Object.keys(new PageData().info)
     rows.push(headerRow);
 
-    // console.log(rows)
-
+    console.log('出力開始')
     let docs = await getDones();
     docs.forEach(doc => {
         let tmpRow = [];
@@ -42,8 +41,8 @@ async function main() {
     });
 
     const filename = "./result/" + conf.id + "/" + conf.id + '.xlsx';
-    await xlsxIo.xlsxExport(rows,filename);
-    console.log("ファイル出力完了:"+filename);
+    await xlsxIo.xlsxExport(rows, filename);
+    console.log("ファイル出力完了:" + filename);
 }
 async function getDones() {
     let rtn = await new Promise((resolve, reject) => {
@@ -54,13 +53,6 @@ async function getDones() {
                 resolve(docs);
             }
         });
-        // db.UrlList.find({ status: 'done' }, (err, docs) => {
-        //     if (err) {
-        //         reject(err);
-        //     } else {
-        //         resolve(docs);
-        //     }
-        // });
     });
     return rtn;
 }
